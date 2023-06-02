@@ -1,6 +1,8 @@
+import logo from '../logo.png';
+
 function Header() {
     return (
-        <header><img src="logo.png" alt="Little Lemon Logo"/></header>
+        <header><img src={logo} alt="Little Lemon Logo"/></header>
     );
 };
 
