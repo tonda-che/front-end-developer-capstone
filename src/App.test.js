@@ -34,7 +34,68 @@ test('Tests the updateTimes function', () => {
 test('Tests functionality of handleSubmit', () => {
   const handleSubmit = jest.fn();
   render(<BookingForm availableTimes={["17:00","18:00","19:00","20:00","21:00","22:00"]} dispatch={() => {}} handleSubmit={handleSubmit}/>);
+  const input = screen.getByLabelText("Choose date");
+  fireEvent.change(input, { target: { value: '2023-06-08'} })
   const submitButton = screen.getByRole("button")
   fireEvent.click(submitButton);
   expect(handleSubmit).toHaveBeenCalled();
+});
+
+test('Tests date functionality in form', () => {
+  const handleSubmit = jest.fn();
+  render(<BookingForm availableTimes={["17:00","18:00","19:00","20:00","21:00","22:00"]} dispatch={() => {}} handleSubmit={handleSubmit}/>);
+  const input = screen.getByLabelText("Choose date");
+  fireEvent.change(input, { target: { value: null} });
+  const timeInput = screen.getByLabelText("Choose time");
+  fireEvent.change(timeInput, { target: { value: "17:00"} });
+  const guestsInput = screen.getByLabelText("Number of guests");
+  fireEvent.change(guestsInput, { target: { value: "10"} });
+  const ocassionInput = screen.getByLabelText("Occasion");
+  fireEvent.change(ocassionInput, { target: { value: "Birthday"} });
+  const submitButton = screen.getByRole("button");
+  fireEvent.click(submitButton);
+  expect(handleSubmit).not.toHaveBeenCalled();
+  expect(submitButton).toHaveAttribute("disabled");
+});
+
+test('Tests time functionality in form', () => {
+  const handleSubmit = jest.fn();
+  render(<BookingForm availableTimes={["17:00","18:00","19:00","20:00","21:00","22:00"]} dispatch={() => {}} handleSubmit={handleSubmit}/>);
+  const dateInput = screen.getByLabelText("Choose date");
+  fireEvent.change(dateInput, { target: { value: '2023-06-08'} })
+
+  const input = screen.getByLabelText("Choose time");
+  fireEvent.change(input, { target: { value: ""} })
+
+  const submitButton = screen.getByRole("button");
+  fireEvent.click(submitButton);
+
+  expect(handleSubmit).not.toHaveBeenCalled();
+  expect(submitButton).toHaveAttribute("disabled");
+});
+
+test('Tests guests functionality in form', () => {
+  const handleSubmit = jest.fn();
+  render(<BookingForm availableTimes={["17:00","18:00","19:00","20:00","21:00","22:00"]} dispatch={() => {}} handleSubmit={handleSubmit}/>);
+  const dateInput = screen.getByLabelText("Choose date");
+  fireEvent.change(dateInput, { target: { value: '2023-06-08'} })
+  const input = screen.getByLabelText("Number of guests");
+  fireEvent.change(input, { target: { value: "-1"} })
+  const submitButton = screen.getByRole("button");
+  fireEvent.click(submitButton);
+  expect(handleSubmit).not.toHaveBeenCalled();
+  expect(submitButton).toHaveAttribute("disabled");
+});
+
+test('Tests occassion functionality in form', () => {
+  const handleSubmit = jest.fn();
+  render(<BookingForm availableTimes={["17:00","18:00","19:00","20:00","21:00","22:00"]} dispatch={() => {}} handleSubmit={handleSubmit}/>);
+  const dateInput = screen.getByLabelText("Choose date");
+  fireEvent.change(dateInput, { target: { value: '2023-06-08'} })
+  const input = screen.getByLabelText("Occasion");
+  fireEvent.change(input, { target: { value: "Funeral"} })
+  const submitButton = screen.getByRole("button");
+  fireEvent.click(submitButton);
+  expect(handleSubmit).not.toHaveBeenCalled();
+  expect(submitButton).toHaveAttribute("disabled");
 });

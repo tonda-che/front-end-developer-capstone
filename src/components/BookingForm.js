@@ -36,7 +36,7 @@ function BookingForm(props) {
                 }
                 } />
                 <label htmlFor="res-time">Choose time</label>
-                <select id="res-time " value={time} onChange={e => { setTime(e.target.value); }}>
+                <select id="res-time" value={time} onChange={e => { setTime(e.target.value); }}>
                     {props.availableTimes.map(time => {
                         return <option key={time}>{time}</option>
                     })}
@@ -48,7 +48,7 @@ function BookingForm(props) {
                     <option>Birthday</option>
                     <option>Anniversary</option>
                 </select>
-                <input type="submit" value="Make Your reservation" disabled={!validate()} />
+                <input type="submit" value="Make Your reservation" aria-label="On Click" disabled={!validate()} />
             </form>
         </>
     );

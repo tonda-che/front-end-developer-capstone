@@ -1,7 +1,7 @@
 function ConfirmedBooking() {
     return (
         <div id="confirmed">
-            Thanks for Booking at Little Lemon!
+            <p>Thanks for Booking at Little Lemon!</p>
         </div>
     );
 };
