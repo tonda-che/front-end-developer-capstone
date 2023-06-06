@@ -23,7 +23,8 @@ function Main() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        submitAPI();
+        console.log(e);
+        submitAPI(e);
         navigate("confirmed");
     }
 
